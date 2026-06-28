@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "announcement": "announcement",
+    "header": "header",
+    "footer": "footer"
+  },
+  "layout": "theme",
+  "content_for_header": "",
+  "password_message": "Sorry, this store is currently password protected.",
+  "password_success_message": "Welcome to our store",
+  "currency": "USD",
+  "checkout_logo_url": ""
+}

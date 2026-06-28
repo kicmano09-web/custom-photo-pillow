@@ -1,0 +1,85 @@
+{
+  "theme": {
+    "name": "Custom Photo Pillow - Premium",
+    "id": "custom-photo-pillow",
+    "version": "1.0.0",
+    "description": "A modern, luxury Shopify theme for custom photo pillows with live image customizer",
+    "author": "kicmano09-web",
+    "keywords": ["custom", "photo", "pillow", "personalized", "luxury"],
+    "support_url": "https://github.com/kicmano09-web/custom-photo-pillow",
+    "settings_schema": {
+      "branding": {
+        "name": "Branding",
+        "settings": [
+          {
+            "name": "Logo",
+            "id": "logo",
+            "type": "image_picker"
+          },
+          {
+            "name": "Logo Width",
+            "id": "logo_width",
+            "type": "range",
+            "min": 50,
+            "max": 300,
+            "unit": "px"
+          },
+          {
+            "name": "Primary Color",
+            "id": "primary_color",
+            "type": "color",
+            "default": "#000000"
+          },
+          {
+            "name": "Secondary Color",
+            "id": "secondary_color",
+            "type": "color",
+            "default": "#d4a574"
+          }
+        ]
+      },
+      "social": {
+        "name": "Social Media",
+        "settings": [
+          {
+            "name": "Instagram URL",
+            "id": "instagram_url",
+            "type": "url"
+          },
+          {
+            "name": "Facebook URL",
+            "id": "facebook_url",
+            "type": "url"
+          },
+          {
+            "name": "Pinterest URL",
+            "id": "pinterest_url",
+            "type": "url"
+          },
+          {
+            "name": "TikTok URL",
+            "id": "tiktok_url",
+            "type": "url"
+          }
+        ]
+      },
+      "checkout": {
+        "name": "Checkout Settings",
+        "settings": [
+          {
+            "name": "Enable Guest Checkout",
+            "id": "guest_checkout",
+            "type": "checkbox",
+            "default": true
+          },
+          {
+            "name": "Show Order Notes",
+            "id": "order_notes",
+            "type": "checkbox",
+            "default": true
+          }
+        ]
+      }
+    }
+  }
+}
