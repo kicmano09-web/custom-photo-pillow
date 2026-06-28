@@ -1,0 +1,565 @@
+{% comment %}
+  Main Product Section with Customizer
+  Combines product details, options, and live image customizer
+{% endcomment %}
+
+<section class="product-section" data-section-id="{{ section.id }}" id="customizer">
+  <div class="product-container">
+    <div class="product-grid">
+      <!-- Product Gallery -->
+      <div class="product-gallery">
+        <div class="gallery-main">
+          <img
+            id="galleryImage"
+            src="{{ product.featured_image | img_url: '800x800' }}"
+            alt="{{ product.featured_image.alt }}"
+            class="gallery-image"
+            loading="lazy"
+            width="800"
+            height="800"
+          />
+        </div>
+        <div class="gallery-thumbnails">
+          {% for image in product.images limit: 4 %}
+            <div class="thumbnail" data-image-url="{{ image | img_url: '800x800' }}">
+              <img
+                src="{{ image | img_url: '200x200' }}"
+                alt="{{ image.alt }}"
+                loading="lazy"
+                width="200"
+                height="200"
+              />
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Product Details -->
+      <div class="product-details">
+        <div class="product-header">
+          <h1 class="product-title">{{ product.title }}</h1>
+          <div class="product-rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-text">Based on 500+ Reviews</span>
+          </div>
+          <div class="product-price">
+            <span id="productPrice" class="price-now">{{ product.price | money }}</span>
+          </div>
+        </div>
+
+        <div class="product-description">
+          {{ product.description }}
+        </div>
+
+        <!-- Image Customizer -->
+        <div class="customizer-wrapper">
+          <h3 class="customizer-title">Upload Your Photo</h3>
+          <div class="customizer-canvas">
+            <canvas id="customizerCanvas" width="400" height="400"></canvas>
+            <div class="canvas-placeholder" id="canvasPlaceholder">
+              <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+              <p>Drag your image here or click to upload</p>
+              <span class="format-info">JPG or PNG, Max 10MB</span>
+            </div>
+          </div>
+          <input type="file" id="imageUpload" accept="image/jpeg,image/png" hidden />
+
+          <div class="customizer-controls">
+            <div class="control-group">
+              <label for="zoomSlider">Zoom</label>
+              <input type="range" id="zoomSlider" min="0.5" max="3" step="0.1" value="1" class="slider" />
+              <span class="slider-value">100%</span>
+            </div>
+            <div class="control-group">
+              <label for="rotateSlider">Rotate</label>
+              <input type="range" id="rotateSlider" min="0" max="360" step="1" value="0" class="slider" />
+              <span class="slider-value">0°</span>
+            </div>
+          </div>
+
+          <div class="customizer-actions">
+            <button id="cropButton" class="btn-secondary">✂️ Crop</button>
+            <button id="resetButton" class="btn-secondary">↻ Reset</button>
+            <button id="removeImageButton" class="btn-secondary">✕ Remove</button>
+          </div>
+        </div>
+
+        <!-- Product Options -->
+        <form id="productForm" class="product-form">
+          <div class="form-group">
+            <label for="sizeSelect" class="form-label">Pillow Size</label>
+            <select id="sizeSelect" class="form-select">
+              <option value="12x20">12 x 20 inches</option>
+              <option value="18x18" selected>18 x 18 inches</option>
+              <option value="22x22">22 x 22 inches</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="quantitySelect" class="form-label">Quantity</label>
+            <div class="quantity-selector">
+              <button type="button" class="qty-btn" id="qtyDecrease">−</button>
+              <input type="number" id="quantitySelect" min="1" max="100" value="1" class="qty-input" />
+              <button type="button" class="qty-btn" id="qtyIncrease">+</button>
+            </div>
+          </div>
+
+          <button type="submit" id="addToCartBtn" class="button button--primary button--large">
+            Add to Cart - <span id="cartPrice">{{ product.price | money }}</span>
+          </button>
+        </form>
+
+        <!-- Trust Badges -->
+        <div class="trust-badges">
+          <div class="badge">
+            <svg class="badge-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+            </svg>
+            <span>Secure Checkout</span>
+          </div>
+          <div class="badge">
+            <svg class="badge-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+            </svg>
+            <span>Premium Quality</span>
+          </div>
+          <div class="badge">
+            <svg class="badge-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/>
+            </svg>
+            <span>Machine Washable</span>
+          </div>
+          <div class="badge">
+            <svg class="badge-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+            </svg>
+            <span>Worldwide Shipping</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .product-section {
+    padding: 4rem 2rem;
+    background: #ffffff;
+  }
+
+  .product-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  /* Gallery Styles */
+  .product-gallery {
+    position: sticky;
+    top: 100px;
+  }
+
+  .gallery-main {
+    width: 100%;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f8f8f8;
+  }
+
+  .gallery-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    cursor: zoom-in;
+  }
+
+  .gallery-thumbnails {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+
+  .thumbnail {
+    cursor: pointer;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .thumbnail:hover,
+  .thumbnail.active {
+    border-color: #d4a574;
+  }
+
+  .thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Product Details */
+  .product-details {
+    padding: 2rem 0;
+  }
+
+  .product-header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 2rem;
+  }
+
+  .product-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    line-height: 1.2;
+    color: #000;
+  }
+
+  .product-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .stars {
+    font-size: 1.25rem;
+    color: #d4a574;
+  }
+
+  .rating-text {
+    font-size: 0.875rem;
+    color: #666;
+  }
+
+  .product-price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #000;
+  }
+
+  .price-now {
+    display: inline-block;
+  }
+
+  .product-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 2rem;
+  }
+
+  /* Customizer */
+  .customizer-wrapper {
+    background: #f8f8f8;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .customizer-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #000;
+  }
+
+  .customizer-canvas {
+    position: relative;
+    width: 100%;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+    border: 2px dashed #d0d0d0;
+    aspect-ratio: 1;
+  }
+
+  #customizerCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .canvas-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    cursor: pointer;
+    color: #999;
+  }
+
+  .upload-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+  }
+
+  .format-info {
+    font-size: 0.75rem;
+    color: #bbb;
+  }
+
+  /* Controls */
+  .customizer-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .control-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .control-group label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #000;
+  }
+
+  .slider {
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: #e0e0e0;
+    outline: none;
+    -webkit-appearance: none;
+  }
+
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #d4a574;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+  }
+
+  .slider-value {
+    font-size: 0.75rem;
+    color: #999;
+  }
+
+  .customizer-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .btn-secondary {
+    padding: 0.75rem 1rem;
+    background: #e8e8e8;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .btn-secondary:hover {
+    background: #d0d0d0;
+  }
+
+  /* Form */
+  .product-form {
+    margin-bottom: 2rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #000;
+  }
+
+  .form-select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+  }
+
+  .form-select:hover,
+  .form-select:focus {
+    border-color: #d4a574;
+    outline: none;
+  }
+
+  .quantity-selector {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    width: fit-content;
+  }
+
+  .qty-btn {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1.25rem;
+    color: #999;
+    transition: color 0.2s ease;
+  }
+
+  .qty-btn:hover {
+    color: #d4a574;
+  }
+
+  .qty-input {
+    width: 60px;
+    border: none;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .qty-input:focus {
+    outline: none;
+  }
+
+  /* Buttons */
+  .button {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+  }
+
+  .button--primary {
+    background: #000;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .button--primary:hover {
+    background: #d4a574;
+  }
+
+  .button--large {
+    padding: 1.25rem 2rem;
+    font-size: 1.125rem;
+  }
+
+  /* Trust Badges */
+  .trust-badges {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e0e0e0;
+    margin-top: 2rem;
+  }
+
+  .badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .badge-icon {
+    width: 32px;
+    height: 32px;
+    color: #d4a574;
+  }
+
+  .badge span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #666;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .product-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .product-gallery {
+      position: static;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .product-section {
+      padding: 2rem 1rem;
+    }
+
+    .product-title {
+      font-size: 1.75rem;
+    }
+
+    .product-price {
+      font-size: 1.5rem;
+    }
+
+    .customizer-controls {
+      grid-template-columns: 1fr;
+    }
+
+    .customizer-actions {
+      grid-template-columns: 1fr;
+    }
+
+    .trust-badges {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+
+<script src="{{ 'customizer.js' | asset_url }}" defer></script>

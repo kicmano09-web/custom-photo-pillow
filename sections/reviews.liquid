@@ -1,0 +1,203 @@
+{% comment %}
+  Customer Reviews Section with Star Ratings
+{% endcomment %}
+
+<section class="reviews-section" data-section-id="{{ section.id }}">
+  <div class="reviews-container">
+    <div class="reviews-header">
+      <h2 class="reviews-title">{{ section.settings.title }}</h2>
+      <div class="reviews-stats">
+        <div class="rating-display">
+          <span class="stars-large">★★★★★</span>
+          <span class="rating-number">4.9 out of 5</span>
+        </div>
+        <p class="reviews-count">Based on 500+ verified customer reviews</p>
+      </div>
+    </div>
+
+    <div class="reviews-grid">
+      {% for i in (1..6) %}
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-stars">★★★★★</div>
+            <div class="verified-badge">✓ Verified Purchase</div>
+          </div>
+          <h4 class="review-title">Perfect gift for memory keeping</h4>
+          <p class="review-text">
+            The quality exceeded my expectations. The photo printed beautifully on the pillow, and the stitching is perfect. My mom absolutely loved it!
+          </p>
+          <div class="review-author">
+            <div class="author-avatar">JM</div>
+            <div class="author-info">
+              <p class="author-name">Jennifer M.</p>
+              <p class="author-location">Verified Buyer</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .reviews-section {
+    padding: 4rem 2rem;
+    background: #f8f8f8;
+  }
+
+  .reviews-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .reviews-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .reviews-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #000;
+  }
+
+  .reviews-stats {
+    margin-bottom: 1.5rem;
+  }
+
+  .rating-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .stars-large {
+    font-size: 2rem;
+    color: #d4a574;
+  }
+
+  .rating-number {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #000;
+  }
+
+  .reviews-count {
+    font-size: 0.875rem;
+    color: #666;
+    margin: 0;
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+
+  .review-card {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+  }
+
+  .review-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+  }
+
+  .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .review-stars {
+    font-size: 1.25rem;
+    color: #d4a574;
+  }
+
+  .verified-badge {
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .review-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.75rem 0;
+    color: #000;
+  }
+
+  .review-text {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 1.5rem;
+  }
+
+  .review-author {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .author-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #d4a574;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .author-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin: 0;
+    color: #000;
+  }
+
+  .author-location {
+    font-size: 0.75rem;
+    color: #999;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .reviews-section {
+      padding: 2rem 1rem;
+    }
+
+    .reviews-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Reviews Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Loved by Customers"
+    }
+  ]
+}
+{% endschema %}

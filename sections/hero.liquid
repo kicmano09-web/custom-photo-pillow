@@ -1,0 +1,146 @@
+{% comment %}
+  Hero Section - Premium lifestyle image with CTA
+  Lazy-loaded background image for performance
+{% endcomment %}
+
+<section class="hero" data-section-id="{{ section.id }}">
+  <div class="hero__content">
+    <div class="hero__text-wrapper">
+      <h1 class="hero__title">{{ section.settings.title }}</h1>
+      <p class="hero__subtitle">{{ section.settings.subtitle }}</p>
+      <a href="#customizer" class="hero__cta button button--primary">
+        {{ section.settings.cta_text }}
+      </a>
+    </div>
+  </div>
+  <div class="hero__image-wrapper">
+    <img 
+      src="{{ section.settings.image | img_url: '1600x' }}"
+      alt="{{ section.settings.image.alt }}"
+      loading="lazy"
+      class="hero__image"
+      width="1600"
+      height="900"
+    />
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 90vh;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f8f8f8 0%, #ffffff 100%);
+  }
+
+  .hero__image-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .hero__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #ffffff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    padding: 2rem;
+  }
+
+  .hero__text-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .hero__title {
+    font-size: clamp(2rem, 8vw, 4rem);
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .hero__subtitle {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 400;
+    margin: 0 0 2rem 0;
+    opacity: 0.95;
+  }
+
+  .hero__cta {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      height: 70vh;
+      min-height: 400px;
+    }
+
+    .hero__title {
+      font-size: 1.75rem;
+    }
+
+    .hero__subtitle {
+      font-size: 1rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Hero Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Headline",
+      "default": "Turn Your Favorite Memories Into a Beautiful Custom Pillow"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Premium custom photo pillows, made to order with Printful fulfillment"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Button Text",
+      "default": "Create Your Pillow"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Section"
+    }
+  ]
+}
+{% endschema %}

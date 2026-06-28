@@ -1,0 +1,122 @@
+{% comment %}
+  Trust Badges / Social Proof Section
+{% endcomment %}
+
+<section class="trust-section" data-section-id="{{ section.id }}">
+  <div class="trust-container">
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-icon">🔒</div>
+        <h3 class="trust-heading">Secure Checkout</h3>
+        <p class="trust-text">256-bit SSL encryption protects your payment information</p>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🎨</div>
+        <h3 class="trust-heading">Premium Print Quality</h3>
+        <p class="trust-text">High-definition dye-sublimation printing for vibrant colors</p>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🧺</div>
+        <h3 class="trust-heading">Machine Washable</h3>
+        <p class="trust-text">Durable, long-lasting pillows that maintain quality after washing</p>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">📦</div>
+        <h3 class="trust-heading">Made To Order</h3>
+        <p class="trust-text">Handcrafted and produced fresh for each customer</p>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🌍</div>
+        <h3 class="trust-heading">Worldwide Shipping</h3>
+        <p class="trust-text">Fast and reliable delivery to 180+ countries</p>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">⭐</div>
+        <h3 class="trust-heading">30-Day Guarantee</h3>
+        <p class="trust-text">Full refund if you're not 100% satisfied</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .trust-section {
+    padding: 4rem 2rem;
+    background: #f8f8f8;
+  }
+
+  .trust-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .trust-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .trust-item {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .trust-item:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+  }
+
+  .trust-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .trust-heading {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin: 0 0 0.75rem 0;
+    color: #000;
+  }
+
+  .trust-text {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #666;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .trust-section {
+      padding: 2rem 1rem;
+    }
+
+    .trust-grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .trust-item {
+      padding: 1.5rem;
+    }
+
+    .trust-icon {
+      font-size: 2rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Trust Badges Section",
+  "presets": [
+    {
+      "name": "Trust Badges"
+    }
+  ]
+}
+{% endschema %}

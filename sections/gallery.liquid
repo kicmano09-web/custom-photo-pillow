@@ -1,0 +1,106 @@
+{% comment %}
+  Product Gallery Section with Zoom Functionality
+{% endcomment %}
+
+<section class="gallery-section" data-section-id="{{ section.id }}">
+  <div class="gallery-container">
+    <h2 class="gallery-title">{{ section.settings.title }}</h2>
+    <div class="gallery-grid">
+      {% for i in (1..6) %}
+        <div class="gallery-item">
+          {% if section.settings["image_" | append: i] %}
+            <img
+              src="{{ section.settings["image_" | append: i] | img_url: '600x600' }}"
+              alt="Gallery image {{ i }}"
+              loading="lazy"
+              class="gallery-item-image"
+              width="600"
+              height="600"
+            />
+          {% else %}
+            <div class="gallery-placeholder">Image {{ i }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .gallery-section {
+    padding: 4rem 2rem;
+    background: #ffffff;
+  }
+
+  .gallery-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .gallery-title {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: #000;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    aspect-ratio: 1;
+    cursor: pointer;
+    background: #f8f8f8;
+  }
+
+  .gallery-item-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .gallery-item:hover .gallery-item-image {
+    transform: scale(1.05);
+  }
+
+  .gallery-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e8e8e8;
+    color: #999;
+    font-size: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .gallery-grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Gallery Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Lifestyle Gallery"
+    }
+  ]
+}
+{% endschema %}
