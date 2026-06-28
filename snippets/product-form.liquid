@@ -1,0 +1,227 @@
+{% comment %}
+  Product Form Snippet
+  Handles product options, customizer image data, and add to cart
+{% endcomment %}
+
+<form id="productForm" class="product-form" method="post" action="/cart/add">
+  {% csrf_token %}
+  
+  <!-- Hidden Product ID -->
+  <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+  
+  <!-- Hidden Customizer Image Data -->
+  <input type="hidden" id="customizedImageData" name="properties[Custom Photo]" value="">
+  
+  <!-- Product Options -->
+  <div class="form-section">
+    <h3 class="form-section-title">Choose Your Pillow</h3>
+    
+    <!-- Size Option -->
+    <div class="form-group">
+      <label for="sizeSelect" class="form-label">Pillow Size *</label>
+      <select id="sizeSelect" name="properties[Pillow Size]" class="form-select" required>
+        <option value="">Select a size</option>
+        <option value="12x20">12 x 20 inches</option>
+        <option value="18x18" selected>18 x 18 inches</option>
+        <option value="22x22">22 x 22 inches</option>
+      </select>
+      <p class="form-hint">All pillows come with hypoallergenic fill</p>
+    </div>
+
+    <!-- Quantity -->
+    <div class="form-group">
+      <label for="quantitySelect" class="form-label">Quantity *</label>
+      <div class="quantity-selector">
+        <button type="button" class="qty-btn" id="qtyDecrease" aria-label="Decrease quantity">−</button>
+        <input type="number" id="quantitySelect" name="quantity" min="1" max="100" value="1" class="qty-input" required />
+        <button type="button" class="qty-btn" id="qtyIncrease" aria-label="Increase quantity">+</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add to Cart Button -->
+  <button type="submit" id="addToCartBtn" class="button button--primary button--large" aria-label="Add this item to cart">
+    Add to Cart
+  </button>
+  
+  <!-- Info Text -->
+  <p class="form-info">
+    💡 <strong>Pro Tip:</strong> Upload your photo first to see the live preview on your pillow!
+  </p>
+</form>
+
+<style>
+  .product-form {
+    margin-bottom: 2rem;
+  }
+
+  .form-section {
+    margin-bottom: 2rem;
+  }
+
+  .form-section-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0 0 1.5rem 0;
+    color: #000;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #000;
+  }
+
+  .form-select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 1rem;
+    background: #ffffff;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+  }
+
+  .form-select:hover {
+    border-color: #d4a574;
+  }
+
+  .form-select:focus {
+    outline: none;
+    border-color: #d4a574;
+    box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
+  }
+
+  .form-hint {
+    font-size: 0.8rem;
+    color: #999;
+    margin: 0.5rem 0 0 0;
+  }
+
+  .quantity-selector {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    width: fit-content;
+  }
+
+  .qty-btn {
+    width: 44px;
+    height: 44px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1.25rem;
+    color: #999;
+    transition: all 0.2s ease;
+  }
+
+  .qty-btn:hover {
+    color: #d4a574;
+    background: #f8f8f8;
+  }
+
+  .qty-input {
+    width: 70px;
+    border: none;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.5rem 0;
+  }
+
+  .qty-input:focus {
+    outline: none;
+  }
+
+  .button {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    display: block;
+    width: 100%;
+  }
+
+  .button--primary {
+    background: #000;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .button--primary:hover {
+    background: #d4a574;
+  }
+
+  .button--primary:active {
+    transform: scale(0.98);
+  }
+
+  .button--large {
+    padding: 1.25rem 2rem;
+    font-size: 1.125rem;
+  }
+
+  .form-info {
+    font-size: 0.85rem;
+    color: #666;
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .button--large {
+      padding: 1rem 1.5rem;
+      font-size: 1rem;
+    }
+  }
+</style>
+
+<script>
+  // Quantity Controls
+  document.getElementById('qtyDecrease').addEventListener('click', (e) => {
+    e.preventDefault();
+    const input = document.getElementById('quantitySelect');
+    if (input.value > 1) input.value = parseInt(input.value) - 1;
+  });
+
+  document.getElementById('qtyIncrease').addEventListener('click', (e) => {
+    e.preventDefault();
+    const input = document.getElementById('quantitySelect');
+    if (input.value < 100) input.value = parseInt(input.value) + 1;
+  });
+
+  // Form Submission
+  document.getElementById('productForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    try {
+      const response = await fetch('/cart/add.js', {
+        method: 'POST',
+        body: formData
+      });
+      
+      if (response.ok) {
+        // Trigger cart drawer to open
+        window.dispatchEvent(new CustomEvent('cart:updated'));
+      }
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+    }
+  });
+</script>

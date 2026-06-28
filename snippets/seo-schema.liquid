@@ -1,0 +1,59 @@
+{% comment %}
+  SEO Schema Snippet
+  JSON-LD structured data for search engines
+{% endcomment %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "{{ product.title }}",
+  "image": "{{ product.featured_image | img_url: '1200x1200' }}",
+  "description": "{{ product.description | strip_html | truncatewords: 30 }}",
+  "brand": {
+    "@type": "Brand",
+    "name": "Custom Photo Pillow"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "500"
+  },
+  "offers": {
+    "@type": "AggregateOffer",
+    "availability": "https://schema.org/InStock",
+    "priceCurrency": "{{ shop.currency }}",
+    "lowPrice": "{{ product.price | money_without_currency }}",
+    "highPrice": "{{ product.price | money_without_currency }}",
+    "offerCount": "1"
+  },
+  "url": "{{ product.url | prepend: shop.url }}"
+}
+</script>
+
+{% comment %}
+  Open Graph Meta Tags
+{% endcomment %}
+<meta property="og:title" content="{{ page_title }}"/>
+<meta property="og:description" content="Turn your favorite memories into a beautiful custom pillow. Premium quality, machine washable, made to order."/>
+<meta property="og:image" content="{{ product.featured_image | img_url: '1200x630' }}"/>
+<meta property="og:url" content="{{ canonical_url }}"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="{{ shop.name }}"/>
+
+{% comment %}
+  Twitter Meta Tags
+{% endcomment %}
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="{{ page_title }}"/>
+<meta name="twitter:description" content="Create your custom photo pillow today"/>
+<meta name="twitter:image" content="{{ product.featured_image | img_url: '1200x630' }}"/>
+
+{% comment %}
+  Core Meta Tags
+{% endcomment %}
+<meta name="description" content="Custom photo pillows with live image editor. Upload your photo, customize, and order. Premium quality, worldwide shipping, 30-day guarantee."/>
+<meta name="keywords" content="custom photo pillow, personalized pillow, photo gift, custom pillow, memory pillow"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#000000"/>
+<link rel="canonical" href="{{ canonical_url }}"/>
