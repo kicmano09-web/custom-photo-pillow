@@ -1,0 +1,7 @@
+current: development
+themes:
+  development:
+    main: true
+    id: null
+  production:
+    id: null

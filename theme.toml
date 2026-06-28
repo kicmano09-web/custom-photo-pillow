@@ -1,0 +1,6 @@
+name = "Custom Photo Pillow - Premium Shopify Theme"
+description = "A modern, luxury one-product Shopify storefront for custom photo pillows with live image customizer and Printful integration."
+theme_store_id = 0
+
+[settings]
+settings_data = "settings_data.json"
