@@ -1,0 +1,54 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {}
+    },
+    "hero": {
+      "type": "hero",
+      "disabled": true,
+      "settings": {
+        "title": "Turn Your Favorite Memories Into a Beautiful Custom Pillow",
+        "subtitle": "Premium custom photo pillows, made to order with Printful fulfillment",
+        "cta_text": "Create Your Pillow",
+        "image": ""
+      }
+    },
+    "gallery": {
+      "type": "gallery",
+      "disabled": true,
+      "settings": {
+        "title": "Lifestyle Gallery"
+      }
+    },
+    "reviews": {
+      "type": "reviews",
+      "settings": {
+        "title": "Loved by Customers"
+      }
+    },
+    "trust-badges": {
+      "type": "trust-badges",
+      "settings": {}
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "title": "Frequently Asked Questions"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "hero",
+    "gallery",
+    "reviews",
+    "trust-badges",
+    "faq",
+    "footer"
+  ]
+}

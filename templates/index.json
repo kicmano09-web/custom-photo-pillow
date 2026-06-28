@@ -1,0 +1,47 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "title": "Turn Your Favorite Memories Into a Beautiful Custom Pillow",
+        "subtitle": "Premium custom photo pillows, made to order. Upload your photo, customize, and order today.",
+        "cta_text": "Create Your Pillow",
+        "image": ""
+      }
+    },
+    "gallery": {
+      "type": "gallery",
+      "settings": {
+        "title": "See Our Pillows in Action"
+      }
+    },
+    "reviews": {
+      "type": "reviews",
+      "settings": {
+        "title": "Loved by Customers"
+      }
+    },
+    "trust-badges": {
+      "type": "trust-badges",
+      "settings": {}
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "title": "Frequently Asked Questions"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "gallery",
+    "reviews",
+    "trust-badges",
+    "faq",
+    "footer"
+  ]
+}
