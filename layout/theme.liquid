@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ page_title }}</title>
+    {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ 'favicon.png' | asset_url }}">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ page_title }}">
+    <meta property="og:description" content="{{ page_description | escape }}">
+    <meta property="og:image" content="{{ 'og-image.jpg' | asset_url }}">
+    <meta property="og:url" content="{{ canonical_url }}">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ page_title }}">
+    <meta name="twitter:description" content="{{ page_description | escape }}">
+    <meta name="twitter:image" content="{{ 'og-image.jpg' | asset_url }}">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ canonical_url }}">
+    
+    <!-- Theme CSS -->
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+    
+    <!-- Shopify Head -->
+    {{ content_for_header }}
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="site-header">
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">
+            <a href="{{ '/' | url }}">
+              {% if settings.logo %}
+                <img src="{{ settings.logo | image_url: width: settings.logo_width }}" alt="{{ shop.name }}" class="logo-img">
+              {% else %}
+                <h1>{{ shop.name }}</h1>
+              {% endif %}
+            </a>
+          </div>
+          <nav class="main-nav">
+            <ul>
+              <li><a href="{{ '/' | url }}">Home</a></li>
+              <li><a href="{{ '/products/custom-photo-pillow' | url }}">Shop</a></li>
+              <li><a href="{{ '/pages/about' | url }}">About</a></li>
+              <li><a href="{{ '/pages/contact' | url }}">Contact</a></li>
+            </ul>
+          </nav>
+          <div class="cart-icon">
+            <a href="{{ '/cart' | url }}">
+              <span class="cart-count">{{ cart.item_count }}</span>
+              🛒
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      {{ content_for_layout }}
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h4>About</h4>
+            <ul>
+              <li><a href="{{ '/pages/about' | url }}">About Us</a></li>
+              <li><a href="{{ '/pages/shipping' | url }}">Shipping Info</a></li>
+              <li><a href="{{ '/pages/returns' | url }}">Returns</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Customer Service</h4>
+            <ul>
+              <li><a href="{{ '/pages/contact' | url }}">Contact Us</a></li>
+              <li><a href="{{ '/pages/faq' | url }}">FAQ</a></li>
+              <li><a href="mailto:{{ shop.email }}">Email</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Follow Us</h4>
+            <ul class="social-links">
+              {% if settings.instagram_url %}
+                <li><a href="{{ settings.instagram_url }}" target="_blank">Instagram</a></li>
+              {% endif %}
+              {% if settings.facebook_url %}
+                <li><a href="{{ settings.facebook_url }}" target="_blank">Facebook</a></li>
+              {% endif %}
+              {% if settings.pinterest_url %}
+                <li><a href="{{ settings.pinterest_url }}" target="_blank">Pinterest</a></li>
+              {% endif %}
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Newsletter</h4>
+            <form class="newsletter-form">
+              <input type="email" placeholder="Your email" required>
+              <button type="submit">Subscribe</button>
+            </form>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; {{ now | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
+          <p>Powered by <a href="https://www.shopify.com" target="_blank">Shopify</a></p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Cart Drawer -->
+    <div id="cartDrawer" class="cart-drawer">
+      <div id="cartDrawerOverlay" class="cart-drawer-overlay"></div>
+      <div class="cart-drawer-content">
+        <div class="cart-drawer-header">
+          <h2>Shopping Cart</h2>
+          <button id="closeCartDrawer" class="close-btn">&times;</button>
+        </div>
+        <div id="cartDrawerItems" class="cart-drawer-items"></div>
+        <div class="cart-drawer-footer">
+          <div class="cart-totals">
+            <div class="subtotal">
+              <span>Subtotal:</span>
+              <span id="cartSubtotal">$0.00</span>
+            </div>
+            <div class="total">
+              <span>Total:</span>
+              <span id="cartTotal">$0.00</span>
+            </div>
+          </div>
+          <a href="{{ '/cart' | url }}" class="button button--primary">View Cart</a>
+          <a href="{{ '/checkout' | url }}" class="button button--secondary">Checkout</a>
+          <button id="continueShopping" class="button button--tertiary">Continue Shopping</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript Assets -->
+    {{ 'theme.js' | asset_url | script_tag }}
+    {{ 'cart-drawer.js' | asset_url | script_tag }}
+    {{ 'customizer.js' | asset_url | script_tag }}
+    {{ 'gallery.js' | asset_url | script_tag }}
+    {{ 'joke-generator.js' | asset_url | script_tag }}
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        line-height: 1.6;
+        color: #333;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .site-header {
+        background: white;
+        border-bottom: 1px solid #e0e0e0;
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      }
+
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        flex: 0 0 auto;
+      }
+
+      .logo-img {
+        max-width: 200px;
+        height: auto;
+      }
+
+      .main-nav ul {
+        list-style: none;
+        display: flex;
+        gap: 2rem;
+      }
+
+      .main-nav a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .main-nav a:hover {
+        color: #d4a574;
+      }
+
+      .cart-icon {
+        position: relative;
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: #d4a574;
+        color: white;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: 700;
+      }
+
+      main {
+        min-height: calc(100vh - 200px);
+      }
+
+      .site-footer {
+        background: #f8f8f8;
+        padding: 3rem 0 1rem;
+        margin-top: 4rem;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer-section h4 {
+        margin-bottom: 1rem;
+        font-size: 1rem;
+      }
+
+      .footer-section ul {
+        list-style: none;
+      }
+
+      .footer-section a {
+        text-decoration: none;
+        color: #666;
+        font-size: 0.9rem;
+        transition: color 0.3s;
+      }
+
+      .footer-section a:hover {
+        color: #d4a574;
+      }
+
+      .footer-bottom {
+        border-top: 1px solid #e0e0e0;
+        padding-top: 1rem;
+        text-align: center;
+        font-size: 0.85rem;
+        color: #999;
+      }
+
+      .button {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        text-align: center;
+      }
+
+      .button--primary {
+        background: #000;
+        color: white;
+      }
+
+      .button--primary:hover {
+        background: #d4a574;
+      }
+
+      .button--secondary {
+        background: white;
+        color: #000;
+        border: 2px solid #e0e0e0;
+      }
+
+      .button--secondary:hover {
+        border-color: #d4a574;
+      }
+
+      .cart-drawer {
+        position: fixed;
+        right: -400px;
+        top: 0;
+        width: 400px;
+        height: 100vh;
+        background: white;
+        box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+        transition: right 0.3s ease;
+        z-index: 1000;
+      }
+
+      .cart-drawer.active {
+        right: 0;
+      }
+
+      .cart-drawer-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+        z-index: 999;
+      }
+
+      .cart-drawer.active ~ .cart-drawer-overlay {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      @media (max-width: 768px) {
+        .header-content {
+          flex-wrap: wrap;
+        }
+
+        .main-nav {
+          order: 3;
+          flex-basis: 100%;
+          margin-top: 1rem;
+        }
+
+        .main-nav ul {
+          gap: 1rem;
+        }
+
+        .footer-content {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .cart-drawer {
+          width: 100%;
+          right: -100%;
+        }
+      }
+    </style>
+  </body>
+</html>
